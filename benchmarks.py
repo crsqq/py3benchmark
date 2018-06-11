@@ -26,8 +26,8 @@ niter = 5
 
 # matrix mult
 run_benchmark('np dot',
-	"A = np.dot(A,A)",
-	"""
+        "A = np.dot(A,A)",
+        """
 import numpy as np
 A = np.random.random(({dim},{dim}))
 """.format(dim=dim),
@@ -35,7 +35,7 @@ niter)
 
 
 run_benchmark('np svd', "np.linalg.svd(A, full_matrices = False)",
-	"""
+        """
 import numpy as np
 A = np.random.random((int({size} / 2), int({size} / 4)))
 """.format(size=dim),
@@ -43,10 +43,17 @@ niter)
 
 
 run_benchmark('nx betweenness', 'nx.algorithms.betweenness_centrality(g)',
-	"""
+        """
 import networkx as nx
 g = nx.barabasi_albert_graph({n}, {m})
 """.format(n=n, m=m),
 niter)
 
-
+run_benchmark('sklearn svm cv', 'cross_val_score(clf, X, y, cv=5)',
+        """
+from sklearn import datasets
+from sklearn import svm
+from sklearn.model_selection import cross_val_score
+clf = svm.SVC(kernel='linear', C=1)
+X, y = datasets.make_classification({dim}, 100)
+""".format(dim=dim), niter)
