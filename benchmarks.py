@@ -19,7 +19,7 @@ networkx version {:s}
 """.format(sys.version.replace('\n', ""), np.version.version, nx.__version__))
 
 dim = 4096
-n,m = 100,10 # parameter for BA graph
+n,m = 500,10 # parameter for BA graph
 
 niter = 5
 
