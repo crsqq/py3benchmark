@@ -1,14 +1,21 @@
 #!/bin/sh
 
-cwd=`pwd`
+CWD=`pwd`
 
+TMPPTH=/tmp
+TMPDIR=mybenchmark
+TMPPTHFULL=$TMPPTH/$TMPDIR
 
-cd /tmp
-mkdir mybenchmark
-cd mybenchmark
+if [ ! -d $TMPPTHFULL ]; then
+    cd $TMPPTH
+    mkdir $TMPDIR
+    cd $TMPDIR
 
-python3 -m venv testenv
-. /tmp/mybenchmark/testenv/bin/activate
+    python3 -m venv testenv
+    . $TMPPTHFULL/testenv/bin/activate
 
-pip install numpy==1.14.4 networkx==2.1
-python $cwd/benchmarks.py
+    pip install numpy==1.14.4 networkx==2.1
+else
+    . $TMPPTHFULL/testenv/bin/activate
+fi
+python $CWD/benchmarks.py
